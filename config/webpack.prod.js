@@ -10,8 +10,8 @@ module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
 
     output: {
-    path: helpers.root('public'),
-    publicPath: '/'
+        path: helpers.root('public'),
+        publicPath: '/'
     },
 
     module: {
@@ -57,18 +57,18 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-        mangle: {
-        keep_fnames: true
-        }
-    }),
-    new ExtractTextPlugin('[name].[hash].css'),
-    new webpack.DefinePlugin({
-        'process.env': {
-        'ENV': JSON.stringify(ENV)
-        }
-    })
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            mangle: {
+                keep_fnames: true
+            }
+        }),
+        new ExtractTextPlugin('[name].[hash].css'),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'ENV': JSON.stringify(ENV)
+            }
+        })
     ]
 });
 

@@ -12,4 +12,8 @@ export default class App {
     run() {
         console.log('Run App...', {...{a: 3}, ...{b: 2}});
     }
+
+    test() {
+        return -1;
+    }
 }
