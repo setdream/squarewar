@@ -1,0 +1,39 @@
+{
+  "name": "squarewar",
+  "version": "1.0.0",
+  "description": "Square War",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --inline --progress --port 8080",
+    "build": "rimraf ./public && webpack --config config/webpack.prod.js --bail",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/setdream/squarewar.git"
+  },
+  "author": "E.Kirilov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/setdream/squarewar/issues"
+  },
+  "homepage": "https://github.com/setdream/squarewar#readme",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-es2017": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "html-webpack-plugin": "^2.28.0",
+    "normalize.css": "^7.0.0",
+    "resolve-url-loader": "^2.0.3",
+    "rimraf": "^2.6.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5",
+    "webpack-merge": "^4.1.0"
+  }
+}
