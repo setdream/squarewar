@@ -7,5 +7,12 @@ export default class GameObject {
         this.id = uuid.create().hex;
         this.isCollapsed = opt.isCollapsed || false;
         this.layer = opt.layer || DEFAULT_LAYER_VALUE;
+
+        this.physics = new Set();
+
+        this.position = {
+            x: 0,
+            y: 0
+        };
     }
 }

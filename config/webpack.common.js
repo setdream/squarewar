@@ -34,7 +34,7 @@ module.exports = {
                         presets: ['env'],
                         plugins: [
                             require('babel-plugin-transform-object-rest-spread'),
-                            require('transform-class-properties')
+                            'transform-class-properties'
                         ]
                     }
                 }

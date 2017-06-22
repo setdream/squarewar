@@ -1,29 +1,26 @@
-import DomElement from './DomElement';
-import DomElementRepositary from './DomElementsRepositary';
+import { makeView } from './dom/helpers/view-maker';
+import ViewRepositary from './dom/repositaries/ViewRepositary';
 
 export default class DomRender {
-    constructor(container) {
-        this.container = container || window.document.body;
-        this.window = window;
-        this.document = window.document;
+    constructor(document, container) {
+        this.container = container;
+        this.document = document;
 
-        this.repositary = new DomElementRepositary();
+        this.repositary = new ViewRepositary();
     }
 
     draw(gameObjects = []) {
-        const repositary = this.repositary;
-        const container = this.container;
-
         gameObjects.forEach(gameObject => {
-            let domElement = repositary.find(gameObject.id);
+            let view = this.repositary.find(gameObject.id);
 
-            if (!domElement) {
-                domElement = new DomElement(gameObject);
-                repositary.add(domElement);
+            if (!view) {
+                view = makeView(document, gameObject);
+                this.repositary.add(view);
 
-                container.appendChild(domElement);
+                this.container.appendChild(view.toHTMLElement());
             }
-        });
 
+            view.refresh();
+        });
     }
 }

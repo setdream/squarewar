@@ -1,4 +1,4 @@
-export default class DomElementsRepositary {
+export default class ViewRepositary {
   data = {};
   
   find(id) {
