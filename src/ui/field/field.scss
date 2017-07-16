@@ -1,0 +1,41 @@
+@import '../../resources/styles/constants';
+
+.field {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+    align-items: center;
+
+    height: 4rem;
+    width: 4rem;
+
+
+    border: 1px solid $colorBlack;
+    background: $colorBlack;
+
+    &__label {
+        color: $colorWhite;
+        font-family: 'Bebas Neue Regular';
+        font-size: $fsizeSmallest;
+    }
+
+    &__input {
+            
+            
+        border: none;
+        width: 1.5rem;
+        height: 1.5rem;
+
+        text-align: center;
+
+        border: none;
+        
+        font-family: 'Bebas Neue Bold';
+        font-size: $fsizeSmallest;
+
+        &:outline {
+            border: none;
+        }
+    }
+}

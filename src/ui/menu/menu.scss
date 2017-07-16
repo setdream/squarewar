@@ -1,0 +1,30 @@
+@import '../../resources/styles/constants';
+
+.menu {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid $colorBlack;
+
+    padding: 1rem;
+
+    height: 15rem;
+    width: 15rem;
+
+    &__title {
+        font-family: 'Bebas Neue';
+        font-size: $fsizeMedium;
+    }
+
+    &__fields {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+    }
+
+    &__content {
+        font-family: 'Bebas Neue Regular';
+        font-size: $fsizeSmallest;
+        letter-spacing: .02rem;
+    }
+}

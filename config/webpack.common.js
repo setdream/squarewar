@@ -1,4 +1,5 @@
 const path = require('path');
+const helpers = require('./helpers');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -8,7 +9,7 @@ module.exports = {
     context: path.resolve(__dirname, './../src'),
 
     entry: {
-        app: './index.js',
+        app: './index.jsx',
     },
 
     output: {
@@ -26,18 +27,27 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env'],
+                        presets: ['env', 'react'],
                         plugins: [
                             require('babel-plugin-transform-object-rest-spread'),
                             'transform-class-properties'
                         ]
                     }
                 }
+            },
+            {
+                test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
+                include: helpers.root('src'),
+                loader: 'url-loader',
+                query: {
+                    name: '[path][name].[hash:8].[ext]',
+                    limit: 4096,
+                },
             },
         ]
     },
