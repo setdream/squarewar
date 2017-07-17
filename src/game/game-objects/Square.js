@@ -40,12 +40,8 @@ export default class Square extends Rectangle {
 
     collision(collisionObj, opt = {}) {
         const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
-        const speed = kinematic.speed;
         const collisionObjDirection = collisionObj.physics.get(PHYSIC_TYPES.KINEMATIC).direction;
         const {x, y, direction} = opt;
-
-        const size = this.size.width;
-        const collSize = collisionObj.size.width;
 
         if (x < y) {
             const dx = collisionObj.isCollapsed ? x / 2 : x;
