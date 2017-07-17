@@ -1,10 +1,7 @@
-// import App from './app/app';
-
-// const app = new App();
-
-// app.init().then(function(document) {
-//     app.run(document, document.body);
-// });
+/*
+ * ...достань из чемодана пистолет,
+ * достань и заложи его в ломбард... (И. А. Бродский)
+ */
 
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -1,23 +1,22 @@
 import BaseScene from '../libs/BaseScene';
-import CollisionPhysic from '../phisics/CollisionPhysic';
+import CollisionPhysic from '../physics/CollisionPhysic';
 
 
 export default class MainScene extends BaseScene {
     constructor() {
         super();
 
-        this.collisionPhysic = new CollisionPhysic(this.data);
+        this.collisionPhysic = new CollisionPhysic(this);
     }
 
     tick(dt) {
-        const gameObjects = this.data;
-        gameObjects.forEach((gameObject) => {
+        const scene = this;
+
+        scene.each((gameObject) => {
             gameObject.physics.forEach((physic) => physic.calculate(dt));
         });
 
-        this.collisionPhysic.calculate((id1, id2, opt = {}) => {
-            const go1 = gameObjects.get(id1);
-            const go2 = gameObjects.get(id2);
+        scene.collisionPhysic.calculate((go1, go2, opt = {}) => {
             
             // if (go1.type === go2.type) {
             //     this.gameObjects.delete(go1.id);

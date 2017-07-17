@@ -1,3 +1,8 @@
+/*
+ * Тогда, когда любовей с нами нет,
+ * тогда, когда от холода горбат, (И. А. Бродский)
+ */
+
 import MainScene from '../scenes/MainScene';
 import Factory from '../libs/Factory';
 import { makeTimer } from '../helpers/helpers';

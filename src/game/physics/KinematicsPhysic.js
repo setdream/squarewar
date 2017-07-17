@@ -1,7 +1,8 @@
+import TYPES from '../consts/physic.types';
 import { toRadians } from '../helpers/helpers';
 
-export default class KinematicsPhisic {
-    type = 'kinematic';
+export default class KinematicsPhysic {
+    type = TYPES.KINEMATIC;
 
     constructor(gameObject, opt = {}) {
         this.gameObject = gameObject;

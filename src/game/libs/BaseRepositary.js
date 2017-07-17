@@ -10,6 +10,10 @@ export default class BaseRepositary {
         return this.data.get(id);
     }
 
+    each(cb = () => {}) {
+        this.data.forEach(cb);
+    }
+
     add(item) {
         if (Array.isArray(item)) {
             item.forEach((el) => {

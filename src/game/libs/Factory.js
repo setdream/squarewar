@@ -1,7 +1,7 @@
 import { getRandomInterval } from '../helpers/helpers';
 import Square from '../game-objects/Square';
 import Rectangle from '../game-objects/Rectangle';
-import KinematicsPhisic from '../phisics/KinematicsPhisic';
+import KinematicsPhysic from '../physics/KinematicsPhysic';
 
 export default class Factory {
     constructor(scene, config) {
@@ -40,7 +40,7 @@ export default class Factory {
             for(let j = 0; j < CeilCountX && count > 0; j++, count--) {
 
                 let square = new Square([maxSize * j, i * maxSize], getRandomInterval(minSize, realMaxSize));
-                square.addPhysic(new KinematicsPhisic(square, {
+                square.addPhysic(new KinematicsPhysic(square, {
                     speed: getRandomInterval(minSpeed, maxSpeed),
                     direction: getRandomInterval(0, 360)
                 }));
