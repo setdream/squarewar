@@ -1,6 +1,7 @@
 import Rectangle from './Rectangle';
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
 import PHYSIC_TYPES from './../consts/physic.types';
+import uuid from 'uuid-js';
 
 import { getRandomDirection } from '../helpers/helpers';
 
@@ -23,6 +24,7 @@ export default class Square extends Rectangle {
             this.size.height = newSize;
 
             opt.cb({
+                id: uuid.create().hex,
                 type: GAME_OBJECT_TYPES.SQUARE,
                 size: newSize,
                 direction: getRandomDirection(0, 179),

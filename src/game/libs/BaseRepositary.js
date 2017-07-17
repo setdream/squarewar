@@ -18,11 +18,7 @@ export default class BaseRepositary extends Observer {
     }
 
     remove(id) {
-        this.fire('remove', this.data.get(id));
-
         this.data.delete(id);
-
-        this.fire('removed', id);
     }
 
     add(item) {
@@ -33,11 +29,13 @@ export default class BaseRepositary extends Observer {
         } else {
             this.data.set(item.id, item);
         }
-
-        this.fire('added', item);
     }
 
     count() {
         return this.data.size;
+    }
+
+    clear() {
+        this.data.clear();
     }
 }
