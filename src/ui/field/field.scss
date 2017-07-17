@@ -10,7 +10,6 @@
     height: 4rem;
     width: 4rem;
 
-
     border: 1px solid $colorBlack;
     background: $colorBlack;
 
@@ -21,8 +20,6 @@
     }
 
     &__input {
-            
-            
         border: none;
         width: 1.5rem;
         height: 1.5rem;
@@ -33,9 +30,5 @@
         
         font-family: 'Bebas Neue Bold';
         font-size: $fsizeSmallest;
-
-        &:outline {
-            border: none;
-        }
     }
 }

@@ -13,6 +13,7 @@ export default class Menu extends React.Component {
         super(props);
 
         this.state = {
+            isGameStarted: false,
             [CONSTANTS.MENU_FIELD_MAX_SIZE.NAME]: CONSTANTS.MENU_FIELD_MAX_SIZE.VALUES.DEFAULT,
             [CONSTANTS.MENU_FIELD_MIN_SIZE.NAME]: CONSTANTS.MENU_FIELD_MIN_SIZE.VALUES.DEFAULT,
             [CONSTANTS.MENU_FIELD_COUNT.NAME]: CONSTANTS.MENU_FIELD_COUNT.VALUES.DEFAULT,
@@ -24,21 +25,30 @@ export default class Menu extends React.Component {
 
     handleChangeParams(event) {
         this.setState({
-            [event.targer.name]: event.targer.value
+            [event.target.name]: event.target.value
         });
     }
 
     handleStart() {
-        const game = new Game(this.state);
+        const self = this;
+        const game = new Game({
+            maxSize: ~~this.state[CONSTANTS.MENU_FIELD_MAX_SIZE.NAME],
+            minSize: ~~this.state[CONSTANTS.MENU_FIELD_MIN_SIZE.NAME],
+            count: ~~this.state[CONSTANTS.MENU_FIELD_COUNT.NAME]
+        });
 
         game.init().then(function(document) {
             game.run(document, document.body);
+        });
+
+        this.setState({
+            isGameStarted: true
         });
     }
 
     render() {
         return (
-            <div className="menu">
+            <div className={`menu ${this.state.isGameStarted ? 'menu--hidden' : ''}`}>
                 <section className="menu__title">
                     {CONSTANTS.MENU_TITLE}
                 </section>
@@ -52,7 +62,7 @@ export default class Menu extends React.Component {
                         max={CONSTANTS.MENU_FIELD_MAX_SIZE.VALUES.MAX}
                         min={CONSTANTS.MENU_FIELD_MAX_SIZE.VALUES.MIN}
                         name={CONSTANTS.MENU_FIELD_MAX_SIZE.NAME}
-                        handleChannge={this.handleChangeParams}
+                        handleChange={this.handleChangeParams}
                     />
                     <Field
                         title={CONSTANTS.MENU_FIELD_MIN_SIZE.TITLE}
@@ -60,7 +70,7 @@ export default class Menu extends React.Component {
                         max={CONSTANTS.MENU_FIELD_MIN_SIZE.VALUES.MAX}
                         min={CONSTANTS.MENU_FIELD_MIN_SIZE.VALUES.MIN}
                         name={CONSTANTS.MENU_FIELD_MIN_SIZE.NAME}
-                        handleChannge={this.handleChangeParams}
+                        handleChange={this.handleChangeParams}
                     />
                     <Field
                         title={CONSTANTS.MENU_FIELD_COUNT.TITLE} 
@@ -68,7 +78,7 @@ export default class Menu extends React.Component {
                         max={CONSTANTS.MENU_FIELD_COUNT.VALUES.MAX}
                         min={CONSTANTS.MENU_FIELD_COUNT.VALUES.MIN}
                         name={CONSTANTS.MENU_FIELD_COUNT.NAME}
-                        handleChannge={this.handleChangeParams}
+                        handleChange={this.handleChangeParams}
                     />
                 </section>
                 <section className="menu__controls">

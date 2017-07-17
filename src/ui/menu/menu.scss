@@ -11,6 +11,10 @@
     height: 15rem;
     width: 15rem;
 
+    &--hidden {
+        display: none;
+    }
+
     &__title {
         font-family: 'Bebas Neue';
         font-size: $fsizeMedium;
