@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './field.scss';
 
 export default class Field extends React.Component {
     static propTypes = {
-        title: React.PropTypes.string,
-        default: React.PropTypes.number.isRequired,
-        min: React.PropTypes.number.isRequired,
-        max: React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-        handleChange: React.PropTypes.func
+        title: PropTypes.string,
+        default: PropTypes.number.isRequired,
+        min: PropTypes.number.isRequired,
+        max: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        handleChange: PropTypes.func
     }
 
     static defaultProps = {
