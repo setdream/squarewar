@@ -12,10 +12,10 @@ export default {
         } 
     },
     MENU_FIELD_MAX_SIZE: {
-        TITLE: 'MAX SIZE',
+        TITLE: 'SIZE',
         NAME: 'maxSize',
         VALUES: {
-            DEFAULT: 50,
+            DEFAULT: 100,
             MIN: 20,
             MAX: 100
         } 
@@ -24,7 +24,7 @@ export default {
         TITLE: 'COUNT',
         NAME: 'count',
         VALUES: {
-            DEFAULT: 30,
+            DEFAULT: 50,
             MIN: 2,
             MAX: 100
         } 

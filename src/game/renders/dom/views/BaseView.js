@@ -2,9 +2,20 @@ export default class BaseView {
     constructor(document, gameObject) {
         this.document = document;
         this.gameObject = gameObject;
+        this.element = null;
 
         this.id = gameObject.id;
-        this.hasBorder = false;
+        this.border = 0;
+    }
+
+    removeChild(id) {
+        if (this.element) {
+            this.element.removeChild(this.document.getElementById(id));
+        }
+    }
+
+    appendChild(element) {
+        this.element.appendChild(element);
     }
 
     makeHTMLElement(gameObject) {

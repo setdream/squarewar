@@ -1,13 +1,8 @@
 import Rectangle from './Rectangle';
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
+import PHYSIC_TYPES from './../consts/physic.types';
 
-import { getRandomInterval } from '../helpers/helpers';
-
-const DEFAULT_SQUARE_SPEED = 0;
-
-Math.radians = function(degrees) {
-  return degrees * Math.PI / 180;
-};
+import { getRandomDirection } from '../helpers/helpers';
 
 export default class Square extends Rectangle {
     constructor(position, size, opt = {}) {
@@ -17,26 +12,52 @@ export default class Square extends Rectangle {
         this.type = GAME_OBJECT_TYPES.SQUARE;
     }
 
-    collision(collisionObj, opt = {}) {
-        const kinematic = this.physics.get('kinematic');
-        
-        const {x, y} = opt.penetration;
+    collapse(opt) {
+        const kinematic = opt.kinematic;
+        const direction = kinematic.direction;
+        const newSize = this.size.width / 2;
 
-        let xPre = opt.penetration.x * opt.direction.x;
-        let yPre = opt.penetration.y * opt.direction.y;
+        if (newSize > opt.minSize) {
+            kinematic.direction = getRandomDirection(180, 359);
+            this.size.width = newSize;
+            this.size.height = newSize;
 
-        if (collisionObj.isCollapsed) {
-            xPre /= 2;
-            yPre /= 2;
-        } 
-
-        if (opt.penetration.x < opt.penetration.y) {
-            this.position.add([xPre, 0]);
+            opt.cb({
+                type: GAME_OBJECT_TYPES.SQUARE,
+                size: newSize,
+                direction: getRandomDirection(0, 179),
+                position: [
+                    this.position.x + newSize + 2, 
+                    this.position.y + newSize + 2
+                ]
+            });
         } else {
-            this.position.add([0, yPre]);
+            this.remove();
+        }
+    }
+
+    collision(collisionObj, opt = {}) {
+        const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
+        const {x, y, direction} = opt;
+
+        if (x < y) {
+            const dx = collisionObj.isCollapsed ? x / 2 : x;
+            
+            this.position.add([dx * direction.x, 0]);
+        } else {
+            const dy = collisionObj.isCollapsed ? y / 2 : y;
+
+            this.position.add([0, dy * direction.y]);
         }
 
-        kinematic.direction = (getRandomInterval(kinematic.direction + 91, kinematic.direction + 269)) % 360;
-        
+        if (this.type === collisionObj.type) {
+            this.collapse({
+                minSize: opt.minSize,
+                cb: opt.cb,
+                kinematic: kinematic
+            });
+        } else {
+            kinematic.direction = getRandomDirection(kinematic.direction + 91, 178);
+        }
     }
 }

@@ -4,19 +4,13 @@
  */
 
 import MainScene from '../scenes/MainScene';
-import Factory from '../libs/Factory';
 import { makeTimer } from '../helpers/helpers';
 
 export default class GameService {
     constructor(config) {
         this.animationFrameId = null;
 
-        this.scene = new MainScene();
-        this.factory = new Factory(this.scene, config);
-
-        this.factory
-            .generateField()
-            .generateSquares();
+        this.scene = new MainScene(config);
     }
 
     stop() {
@@ -29,14 +23,15 @@ export default class GameService {
 
     start(requestAnimationFrame, render) {
         const timer = makeTimer(Date.now());
-
         const callback = () => {
-            render.draw(this.scene.toArray());
+            render.draw();
             this.scene.tick(timer(Date.now()));
 
             requestAnimationFrame(callback);
         }
 
-       this.animationFrameId = requestAnimationFrame(callback);
+        render.init(this.scene);
+
+        this.animationFrameId = requestAnimationFrame(callback);
     }
 }

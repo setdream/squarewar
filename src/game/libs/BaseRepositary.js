@@ -3,7 +3,10 @@
  *   В пустынную ночь опять.   
  */
 
-export default class BaseRepositary {
+import Observer from './Observer'; 
+
+
+export default class BaseRepositary extends Observer {
     data = new Map();
 
     find(id) {
@@ -14,6 +17,14 @@ export default class BaseRepositary {
         this.data.forEach(cb);
     }
 
+    remove(id) {
+        this.fire('remove', this.data.get(id));
+
+        this.data.delete(id);
+
+        this.fire('removed', id);
+    }
+
     add(item) {
         if (Array.isArray(item)) {
             item.forEach((el) => {
@@ -22,13 +33,11 @@ export default class BaseRepositary {
         } else {
             this.data.set(item.id, item);
         }
+
+        this.fire('added', item);
     }
 
     count() {
         return this.data.size;
-    }
-
-    toArray() {
-        return this.data;
     }
 }

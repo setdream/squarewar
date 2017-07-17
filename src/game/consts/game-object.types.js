@@ -1,4 +1,5 @@
 export default {
     SQUARE: 'square',
-    RECTANGLE: 'rectangle'
+    RECTANGLE: 'rectangle',
+    SCENE: 'scene'
 }

@@ -24,9 +24,7 @@ export default class CollisionPhysic {
                         y: [go2.position.y, go2.position.y + go2.size.height],
                     }))) 
                 {
-                    callback(go1, go2, {
-                        penetration
-                    });
+                    callback(go1, go2, penetration);
                 }
            });
         });
