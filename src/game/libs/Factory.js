@@ -27,12 +27,60 @@ export default class Factory {
     generateField() {
         const { field } = this.config;
 
-        this.scene.add([
-            new Rectangle([-1, 0], 1, field.height),
-            new Rectangle([field.width, 0], 1, field.height),
-            new Rectangle([0, -1], field.width, 1),
-            new Rectangle([0, field.height], field.width, 1)
-        ]);
+        this.make({
+            type: GAME_OBJECT_TYPES.RECTANGLE,
+            position: [-1, 0],
+            size: {
+                width: 1,
+                height: field.height
+            },
+            speed: 0,
+            direction: 0,
+            physics: [PHYSIC_TYPES.KINEMATIC]          
+        });
+
+        this.make({
+            type: GAME_OBJECT_TYPES.RECTANGLE,
+            position: [field.width, 0],
+            size: {
+                width: 1,
+                height: field.height
+            },
+            speed: 0,
+            direction: 180,
+            physics: [PHYSIC_TYPES.KINEMATIC]          
+        });
+
+        this.make({
+            type: GAME_OBJECT_TYPES.RECTANGLE,
+            position: [0, -1],
+            size: {
+                width: field.width,
+                height: 1
+            },
+            speed: 0,
+            direction: 90,
+            physics: [PHYSIC_TYPES.KINEMATIC]          
+        });
+
+        this.make({
+            type: GAME_OBJECT_TYPES.RECTANGLE,
+            position: [0, field.height],
+            size: {
+                width: field.width,
+                height: 1
+            },
+            speed: 0,
+            direction: 270,
+            physics: [PHYSIC_TYPES.KINEMATIC]          
+        });
+
+        // this.scene.add([
+        //     new Rectangle([-1, 0], 1, field.height),
+        //     new Rectangle([field.width, 0], 1, field.height),
+        //     new Rectangle([0, -1], field.width, 1),
+        //     new Rectangle([0, field.height], field.width, 1)
+        // ]);
 
         return this;
     }
@@ -86,7 +134,7 @@ export default class Factory {
                     position: [maxSize * j + padding, i * maxSize + padding],
                     size: realMaxSize,
                     speed: getRandomInterval(minSpeed, maxSpeed),
-                    direction: getRandomInterval(0, 360),
+                    direction: (45 * j) % 360,
                     physics: [PHYSIC_TYPES.KINEMATIC]
                 });
             }

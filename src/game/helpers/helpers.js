@@ -33,6 +33,9 @@ export const rectanglePenetration = ({x: [x11, x12], y: [y11, y12]}, {x: [x21, x
 
 export const getRandomInterval = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-export const getRandomDirection = (begin, added) => getRandomInterval(begin, begin + added) % 360;
+export const getRandomDirection = (direction, degree) =>
+    (direction + degree * (Math.random() > 0.5 ? 1 : -1)) % 360;
+
+export const addDirection = (direction, degree) => (direction + degree) % 360;
 
 export const toRadians = (degree) => degree * Math.PI / 180;
