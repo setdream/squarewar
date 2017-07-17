@@ -3,6 +3,7 @@ import CollisionPhysic from '../physics/CollisionPhysic';
 import Factory from '../libs/Factory';
 import BaseRepositary from '../libs/BaseRepositary';
 import PHYSIC_TYPES from '../consts/physic.types';
+import GAME_OBJECT_TYPES from './../consts/game-object.types';
 
 import { getRandomInterval } from '../helpers/helpers';
 
@@ -22,6 +23,12 @@ export default class MainScene extends BaseScene {
 
         this.collision = this.collision.bind(this);
         this.toCreateList = this.toCreateList.bind(this);
+
+        this.on('removed', () => {
+            if (this.countByKey('type', GAME_OBJECT_TYPES.SQUARE) < 2) {
+                this.fire('end');
+            }
+        });
     }
 
     toCreateList(config) {
@@ -47,8 +54,6 @@ export default class MainScene extends BaseScene {
     }
 
     tick(dt) {
-        const scene = this;
-
         this.each((gameObject) => {
             gameObject.physics.forEach((physic) => physic.calculate(dt));
         });

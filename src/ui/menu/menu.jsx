@@ -34,7 +34,10 @@ export default class Menu extends React.Component {
         const game = new Game({
             maxSize: ~~this.state[CONSTANTS.MENU_FIELD_MAX_SIZE.NAME],
             minSize: ~~this.state[CONSTANTS.MENU_FIELD_MIN_SIZE.NAME],
-            count: ~~this.state[CONSTANTS.MENU_FIELD_COUNT.NAME]
+            count: ~~this.state[CONSTANTS.MENU_FIELD_COUNT.NAME],
+            gameEndCallback: () => {
+                document.location.reload();
+            }
         });
 
         game.init().then(function(document) {

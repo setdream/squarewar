@@ -19,6 +19,7 @@ export default class BaseRepositary extends Observer {
 
     remove(id) {
         this.data.delete(id);
+        this.fire('removed', id);
     }
 
     add(item) {
@@ -33,6 +34,21 @@ export default class BaseRepositary extends Observer {
 
     count() {
         return this.data.size;
+    }
+
+    /*
+     * И тут жалеешь о выборе Map.
+     */
+    countByKey(key, value) {
+        let count = 0;
+
+        this.data.forEach(item => {
+            if (value === item[key]) {
+                count += 1;
+            }
+        });
+
+        return count;
     }
 
     clear() {

@@ -11,6 +11,10 @@ export default class GameService {
         this.animationFrameId = null;
 
         this.scene = new MainScene(config);
+
+        this.scene.on('end', () => {
+            config.gameEndCallback();
+        });
     }
 
     stop() {

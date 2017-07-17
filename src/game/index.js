@@ -25,7 +25,7 @@ export default class App {
                 height: window.innerHeight
             },
             ...config
-        });
+        }, config.gameEndCallback);
     }
 
     init() {
