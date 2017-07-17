@@ -13,39 +13,24 @@ export default class Square extends Rectangle {
         this.type = GAME_OBJECT_TYPES.SQUARE;
     }
 
-    update(params = {}) {
-        const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
-
-        this.size = {
-            width: params.size,
-            height: params.size
-        };
-
-        kinematic.speed = params.speed;
-        kinematic.direction = params.direction;
-    }
-
     collapse(opt) {
+        const kinematic = opt.kinematic;
         const direction = opt.direction;
         const newSize = this.size.width / 2;
 
         if (newSize > opt.minSize) {
-            opt.cb({
-                id: this.id,
-                speed: opt.speed,
-                size: newSize,
-                direction: addDirection(direction, -45)
-            });
+            kinematic.direction = addDirection(direction, 45);
+            this.size.width = newSize;
+            this.size.height = newSize;
 
             opt.cb({
                 id: uuid.create().hex,
                 type: GAME_OBJECT_TYPES.SQUARE,
                 size: newSize,
-                speed: opt.speed,
-                direction: addDirection(direction, 45),
+                direction: addDirection(direction, -45),
                 position: [
-                    this.position.x + newSize + 1, 
-                    this.position.y + newSize + 1
+                    this.position.x + newSize + 2, 
+                    this.position.y + newSize + 2
                 ]
             });
         } else {
@@ -76,9 +61,8 @@ export default class Square extends Rectangle {
             this.collapse({
                 minSize: opt.minSize,
                 cb: opt.cb,
-                direction: collisionObjDirection,
-                speed: (size > collSize) ? 
-                    speed - (1/size * speed) : speed + (1/collSize * speed)
+                kinematic: kinematic,
+                direction: collisionObjDirection
             });
         } else {
             kinematic.direction = getRandomDirection(collisionObjDirection, 45);

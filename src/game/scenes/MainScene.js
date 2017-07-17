@@ -22,7 +22,7 @@ export default class MainScene extends BaseScene {
             .generateSquares();
 
         this.collision = this.collision.bind(this);
-        this.toChangedList = this.toChangedList.bind(this);
+        this.toCreateList = this.toCreateList.bind(this);
 
         this.on('removed', () => {
             if (this.countByKey('type', GAME_OBJECT_TYPES.SQUARE) < 2) {
@@ -31,28 +31,20 @@ export default class MainScene extends BaseScene {
         });
     }
 
-    toChangedList(config) {
+    toCreateList(config) {
         this.configRepository.add(config);
     }
 
-    update() {
+    make() {
         if (this.configRepository.count() > 0) {
-            this.configRepository.each(config => {
-                const go = this.find(config.id);
-
-                if (go) {
-                    go.update(config);
-                } else {
-                    this.factory.makeSquare(config);
-                }
-            });
+            this.configRepository.each(config => this.factory.makeSquare(config));
             this.configRepository.clear();
         }
     }
 
     collision(go1, go2, opt) {
         opt.minSize = this.config.minSize;
-        opt.cb = this.toChangedList;
+        opt.cb = this.toCreateList;
 
         go1.collision(go2, opt);
         go2.collision(go1, {...opt, direction: {
@@ -68,6 +60,6 @@ export default class MainScene extends BaseScene {
 
         this.collisionPhysic.calculate(this.collision);
 
-        this.update();
+        this.make();
     }
 }
