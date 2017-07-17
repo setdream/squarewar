@@ -10,16 +10,18 @@ export default class SquareView extends BaseView {
     }
 
     refresh() {
-         let {width, height} = this.gameObject.size;
+        const style = this.element.style;
+        let {width, height} = this.gameObject.size;
 
          if (this.border) {
             width -= this.border * 2;
             height -= this.border * 2;
          }
 
-         this.element.style.width = width + 'px';
-         this.element.style.height = height + 'px';
-         this.element.style.left = this.gameObject.position.x + 'px';
-         this.element.style.top = this.gameObject.position.y + 'px';
+         style.width = `${width}px`;
+         style.height = `${height}px`;
+
+         style.left = `${this.gameObject.position.x}px`;
+         style.top = `${this.gameObject.position.y}px`;
     }
 };

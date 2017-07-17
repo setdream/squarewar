@@ -8,6 +8,8 @@ export default class BaseView {
         this.border = 0;
     }
 
+    init() {}
+
     removeChild(id) {
         if (this.element) {
             this.element.removeChild(this.document.getElementById(id));
@@ -23,6 +25,8 @@ export default class BaseView {
         
         this.element.id = this.gameObject.id;
         this.element.className = this.gameObject.type;
+
+        this.init();
 
         return this.element;
     }

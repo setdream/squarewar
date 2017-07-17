@@ -75,13 +75,6 @@ export default class Factory {
             physics: [PHYSIC_TYPES.KINEMATIC]          
         });
 
-        // this.scene.add([
-        //     new Rectangle([-1, 0], 1, field.height),
-        //     new Rectangle([field.width, 0], 1, field.height),
-        //     new Rectangle([0, -1], field.width, 1),
-        //     new Rectangle([0, field.height], field.width, 1)
-        // ]);
-
         return this;
     }
 

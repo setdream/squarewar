@@ -4,10 +4,13 @@ import './RectangleView.scss';
 
 export default class RectangleView extends BaseView {
     refresh() {
-         const {width, height} = this.gameObject.size;
-         this.element.style.width = width + 'px';
-         this.element.style.height = height + 'px';
-         this.element.style.left = this.gameObject.position.x + 'px';
-         this.element.style.top = this.gameObject.position.y + 'px';
+        const style = this.element.style;
+        const {width, height} = this.gameObject.size;
+
+        style.width = `${width}px`;
+        style.height = `${height}px`;
+
+        style.left = `${this.gameObject.position.x}px`;
+        style.top = `${this.gameObject.position.y}px`;
     }
 };
