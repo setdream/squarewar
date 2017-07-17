@@ -23,9 +23,9 @@ export default class Menu extends React.Component {
         this.handleStart = this.handleStart.bind(this);
     }
 
-    handleChangeParams(event) {
+    handleChangeParams(name, val) {
         this.setState({
-            [event.target.name]: event.target.value
+            [name]: val
         });
     }
 

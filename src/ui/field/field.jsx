@@ -28,11 +28,21 @@ export default class Field extends React.Component {
     }
 
     handleChange(event) {
+        let val = event.target.value;
+
+        if (val < this.props.min) {
+            val = this.props.min;
+        }
+
+        if (val > this.props.max) {
+            val = this.props.max;
+        }
+
         this.setState({
-            value: event.target.value
+            value: val
         });
 
-        this.props.handleChange(event);
+        this.props.handleChange(event.target.name, val);
     }
 
     render() {

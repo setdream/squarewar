@@ -100,7 +100,7 @@ export default class Factory {
             direction: config.direction,
             size: config.size,
             position: config.position,
-            speed: getRandomInterval(this.config.minSpeed, this.config.maxSpeed),
+            speed: config.speed || getRandomInterval(this.config.minSpeed, this.config.maxSpeed),
             physics: [PHYSIC_TYPES.KINEMATIC]
         });
     }
