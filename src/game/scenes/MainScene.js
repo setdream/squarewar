@@ -17,6 +17,24 @@ export default class MainScene extends BaseScene {
         this.factory
             .generateField()
             .generateSquares();
+
+        this.collision = this.collision.bind(this);
+        this.makeGo = this.makeGo.bind(this);
+    }
+
+    makeGo(config) {
+        this.factory.makeSquare(config);
+    }
+
+    collision(go1, go2, opt) {
+        opt.minSize = this.config.minSize;
+        opt.cb = this.makeGo;
+
+        go1.collision(go2, opt);
+        go2.collision(go1, {...opt, direction: {
+            x: -opt.direction.x,
+            y: -opt.direction.y
+        }});
     }
 
     tick(dt) {
@@ -26,14 +44,6 @@ export default class MainScene extends BaseScene {
             gameObject.physics.forEach((physic) => physic.calculate(dt));
         });
 
-        scene.collisionPhysic.calculate((go1, go2, opt = {}) => {
-            go1.collision(go2, {...opt, minSize: this.config.minSize, cb: (config) => {this.factory.makeSquare(config)}});
-            go2.collision(go1, {...opt, direction: {
-                x: -opt.direction.x,
-                y: -opt.direction.y
-            }, minSize: this.config.minSize, cb: (config) => {this.factory.makeSquare(config)}});
-        });
-
-        
+        scene.collisionPhysic.calculate(this.collision);
     }
 }
