@@ -15,3 +15,8 @@
 ```js
     npm run start
 ```
+
+## Следующее обновление:
+- SAT Collision
+- Physics
+- DOM Render Optimisation
