@@ -1,9 +1,18 @@
 .square {
     position: absolute;
-    display: flex;
     left: 0;
-    right: 0;
+    top: 0;
 
     border: 1px solid black;
-    will-change: auto;
+    will-change: transform;
+
+    &__vertex {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        background: red;
+
+        will-change: transform;
+    }
 }

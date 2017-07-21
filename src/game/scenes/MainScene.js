@@ -23,6 +23,7 @@ export default class MainScene extends BaseScene {
 
         this.collision = this.collision.bind(this);
         this.toCreateList = this.toCreateList.bind(this);
+        this.handleCollapse = this.handleCollapse.bind(this);
 
         this.on('removed', () => {
             if (this.countByKey('type', GAME_OBJECT_TYPES.SQUARE) < 2) {
@@ -42,15 +43,23 @@ export default class MainScene extends BaseScene {
         }
     }
 
-    collision(go1, go2, opt) {
-        opt.minSize = this.config.minSize;
-        opt.cb = this.toCreateList;
+    handleCollapse(config) {
+        this.factory.makeSquare(config);
+        this.factory.makeSquare(config);
+    }
 
-        go1.collision(go2, opt);
-        go2.collision(go1, {...opt, direction: {
-            x: -opt.direction.x,
-            y: -opt.direction.y
-        }});
+    collision(go1, go2, opt) {
+        if (go1.isCollapsed && go2.isCollapsed) {
+            // const collapseCfg1 = go1.collapse();
+            // const collapseCfg2 = go2.collapse();
+            go1.collapse(go2, opt);
+            //this.createChildren(collapseCfg1, collapseCfg2);
+        } else {
+            go1.shock(go2, {
+                penetration: opt.penetration,
+                onCollapse: this.handleCollapse
+            });
+        }
     }
 
     tick(dt) {

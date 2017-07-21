@@ -9,6 +9,8 @@ import CONSTS from '../consts/common';
 import GAME_OBJECT_TYPES from '../consts/game-object.types';
 import PHYSIC_TYPES from '../consts/physic.types';
 
+import Victor from 'victor';
+
 const OBJECT_TYPES_TABLE = {
     [GAME_OBJECT_TYPES.SQUARE]: Square,
     [GAME_OBJECT_TYPES.RECTANGLE]: Rectangle
@@ -29,50 +31,50 @@ export default class Factory {
 
         this.make({
             type: GAME_OBJECT_TYPES.RECTANGLE,
-            position: [-1, 0],
+            position: [-101, 0],
             size: {
-                width: 1,
+                width: 100,
                 height: field.height
             },
-            speed: 0,
             direction: 0,
-            physics: [PHYSIC_TYPES.KINEMATIC]          
+            speed: 0,
+            physics: [PHYSIC_TYPES.KINEMATIC]
         });
 
         this.make({
             type: GAME_OBJECT_TYPES.RECTANGLE,
             position: [field.width, 0],
             size: {
-                width: 1,
+                width: 100,
                 height: field.height
             },
-            speed: 0,
             direction: 180,
-            physics: [PHYSIC_TYPES.KINEMATIC]          
+            speed: 0,
+            physics: [PHYSIC_TYPES.KINEMATIC]    
         });
 
         this.make({
             type: GAME_OBJECT_TYPES.RECTANGLE,
-            position: [0, -1],
+            position: [0, -102],
             size: {
                 width: field.width,
-                height: 1
+                height: 100
             },
-            speed: 0,
             direction: 90,
-            physics: [PHYSIC_TYPES.KINEMATIC]          
+            speed: 0,
+            physics: [PHYSIC_TYPES.KINEMATIC]     
         });
 
         this.make({
             type: GAME_OBJECT_TYPES.RECTANGLE,
-            position: [0, field.height],
+            position: [0, field.height + 1],
             size: {
                 width: field.width,
-                height: 1
+                height: 100
             },
-            speed: 0,
             direction: 270,
-            physics: [PHYSIC_TYPES.KINEMATIC]          
+            speed: 0,
+            physics: [PHYSIC_TYPES.KINEMATIC]
         });
 
         return this;
@@ -126,7 +128,7 @@ export default class Factory {
                     type: GAME_OBJECT_TYPES.SQUARE,
                     position: [maxSize * j + padding, i * maxSize + padding],
                     size: realMaxSize,
-                    speed: getRandomInterval(minSpeed, maxSpeed),
+                    speed: 300,
                     direction: (45 * j) % 360,
                     physics: [PHYSIC_TYPES.KINEMATIC]
                 });

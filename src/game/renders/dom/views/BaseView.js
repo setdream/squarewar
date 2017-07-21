@@ -3,6 +3,7 @@ export default class BaseView {
         this.document = document;
         this.gameObject = gameObject;
         this.element = null;
+        this.style = null;
 
         this.id = gameObject.id;
         this.border = 0;
@@ -23,6 +24,8 @@ export default class BaseView {
     makeHTMLElement(gameObject) {
         this.element = this.document.createElement('div');
         
+        this.style = this.element.style;
+
         this.element.id = this.gameObject.id;
         this.element.className = this.gameObject.type;
 
