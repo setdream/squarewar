@@ -7,16 +7,24 @@ export default class KinematicsPhysic {
 
     constructor(gameObject, opt = {}) {
         this.gameObject = gameObject;
-        //this.speed = opt.speed;
         this.speed = opt.speed;
-        this.rotate = 0;
+        this.rotate = opt.rotate || {
+            value: 0,
+            speed: 0,
+            current: 0
+        };
 
-        this.direction = opt.direction || 360;
-
+        this.direction = opt.direction || 0;
     }
 
-    toRotate(angle) {
+    isNeedRotate() {
+        return this.rotate.value > 0;
+    }
+
+    rotateTo(rotate) {
+        const angle = toRadians(rotate);
         const center = this.gameObject.center;
+
         this.gameObject.vertices = this.gameObject.vertices.map((corner) => {
             return new Victor(
                 center.x + (corner.x - center.x) * Math.cos(angle) - (corner.y - center.y) * Math.sin(angle),
@@ -25,7 +33,7 @@ export default class KinematicsPhysic {
         });
     }
 
-    move(moveTo, rotate) {
+    move(moveTo) {
         this.gameObject.position.add(moveTo);
 
         const {x, y} = this.gameObject.position;
@@ -33,28 +41,28 @@ export default class KinematicsPhysic {
 
         this.gameObject.center.add(new Victor.fromArray(moveTo));
 
-        const center = this.gameObject.center;
-
         this.gameObject.vertices = [
             new Victor(x, y),
             new Victor(x + width, y),
             new Victor(x + width, y + height),
             new Victor(x, y + height),
         ];
-
-        if (this.rotate) {
-            const angle = toRadians(this.rotate);
-            this.gameObject.vertices = this.gameObject.vertices.map((corner) => {
-                return new Victor(
-                    center.x + (corner.x - center.x) * Math.cos(angle) - (corner.y - center.y) * Math.sin(angle),
-                    center.y + (corner.x - center.x) * Math.sin(angle) + (corner.y - center.y) * Math.cos(angle)
-                );
-            });
-        }
+        
+        this.rotateTo(this.rotate.current);
     }
 
     shock(shokObj, opt = {}) {
         this.direction = opt.direction + (Math.random() > 0.5 ? 45 : -45);
+        this.rotate = {
+            ...this.rotate, 
+            speed: 30,
+            value: this.rotate.current + 30
+        };
+    }
+
+    updateRotate(rotate) {
+        this.rotate.value -= rotate;
+        this.rotate.current += rotate;
     }
 
     calculate(dt) {
@@ -62,12 +70,14 @@ export default class KinematicsPhysic {
             const speedPerFrame = this.speed * dt,
                 angle = toRadians(this.direction);
 
+            if (this.isNeedRotate()) {
+                this.updateRotate(this.rotate.speed * dt);
+            }
+
             this.move([
                 speedPerFrame * Math.cos(angle),
                 speedPerFrame * Math.sin(angle),
             ]);
-
-           // this.rotate += 1;
         }
     }
 }

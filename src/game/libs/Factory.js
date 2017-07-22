@@ -88,7 +88,12 @@ export default class Factory {
 
                 go.addPhysic(new (PHYSIC_TYPES_TABLE[type])(go, {
                     speed: config.speed,
-                    direction: config.direction
+                    direction: config.direction,
+                    rotate: config.rotate || {
+                        speed: 0,
+                        value: 0,
+                        current: 0
+                    },
                 }));
             });
         }
@@ -102,8 +107,9 @@ export default class Factory {
             direction: config.direction,
             size: config.size,
             position: config.position,
-            speed: config.speed || 100,//|| getRandomInterval(this.config.minSpeed, this.config.maxSpeed),
-            physics: [PHYSIC_TYPES.KINEMATIC]
+            rotate: config.rotate,
+            speed: config.speed || getRandomInterval(this.config.minSpeed, this.config.maxSpeed),
+            physics: [PHYSIC_TYPES.KINEMATIC],
         });
     }
 
@@ -128,7 +134,7 @@ export default class Factory {
                     type: GAME_OBJECT_TYPES.SQUARE,
                     position: [maxSize * j + padding, i * maxSize + padding],
                     size: realMaxSize,
-                    speed: 100,
+                    speed: getRandomInterval(this.config.minSpeed, this.config.maxSpeed),
                     direction: (45 * j) % 360,
                     physics: [PHYSIC_TYPES.KINEMATIC]
                 });

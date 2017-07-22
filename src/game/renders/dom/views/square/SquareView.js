@@ -50,11 +50,11 @@ export default class SquareView extends BaseView {
     refresh() {
         const style = this.element.style;
         const {x, y} = this.gameObject.position;
-        
+
         const scale = this.gameObject.scale;
         const rotate = this.gameObject.physics.get('kinematic').rotate;
 
-        this.style.transform = `translate(${x}px, ${y}px) scale(${scale}) rotate(${rotate}deg)`;
+        this.style.transform = `translate(${x}px, ${y}px) scale(${scale}) rotate(${rotate.current}deg)`;
 
         this.vertices.forEach((el, index) => {
             const {x, y} = this.gameObject.vertices[index]; 

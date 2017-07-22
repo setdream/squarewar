@@ -34,6 +34,12 @@ export default class Square extends Rectangle {
     }
 
     getChildrensCfg(opt = {}) {
+        const rotate = this.physics.get(PHYSIC_TYPES.KINEMATIC).rotate;
+        const newRotate = {
+            ...rotate,
+            speed: 30,
+            value: rotate.current + 30
+        };
         const size = ~~(this.size.width / 2);
 
         let positions = [];
@@ -41,13 +47,13 @@ export default class Square extends Rectangle {
 
         if (opt.isVerticalFormation) {
             positions = [
-                [this.center.x, this.center.y - size - .5],
-                [this.center.x, this.center.y + .5]
+                [this.position.x, this.position.y],
+                [this.center.x + .5, this.center.y + .5]
             ];
         } else {
             positions = [
-                [this.center.x - size + .5, this.center.y],
-                [this.center.x + .5, this.center.y]
+                [this.position.x, this.position.y],
+                [this.center.x + .5, this.center.y + .5]
             ];
         }
 
@@ -56,11 +62,13 @@ export default class Square extends Rectangle {
                 size,
                 position: positions[0],
                 direction: direction + 45 * opt.k,
+                rotate: newRotate,
             },
             {
                 size,
                 position: positions[1],
                 direction: direction - 45 * opt.k,
+                rotate: newRotate,
             }
         ];
     }
