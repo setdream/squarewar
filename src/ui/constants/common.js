@@ -24,7 +24,7 @@ export default {
         TITLE: 'COUNT',
         NAME: 'count',
         VALUES: {
-            DEFAULT: 10,
+            DEFAULT: 2,
             MIN: 2,
             MAX: 100
         } 

@@ -67,7 +67,7 @@ export default class KinematicsPhysic {
                 speedPerFrame * Math.sin(angle),
             ]);
 
-            this.rotate += 1;
+           // this.rotate += 1;
         }
     }
 }

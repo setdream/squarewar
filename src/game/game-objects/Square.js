@@ -15,67 +15,67 @@ export default class Square extends Rectangle {
         this.scale = opt.scale || 1;
     }
 
-    collapse(collisionObj, opt = {}) {
+    collapse() {
         const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
-        const collKinematic = collisionObj.physics.get(PHYSIC_TYPES.KINEMATIC);
-        const angle = opt.penetration.angleDeg();
 
-        collisionObj.direction = (angle + 180) + (Math.random() > 0.5 ? 45 : -45);
-        kinematic.direction = (angle) + (Math.random() > 0.5 ? 45 : -45);
-        // const cfg = {
-        //     size: this.size
-        // };
+        const cfg = {
+            center: {
+                x: this.center.x,
+                y: this.center.y
+            },
+            size: this.size.width,
+            direction: kinematic.direction,
+            speed: kinematic.speed
+        };
 
-        // this.remove();
+        this.remove();
 
-        // return cfg;
+        return cfg;
+    }
+
+    getChildrensCfg(opt = {}) {
+        const size = ~~(this.size.width / 2);
+
+        let positions = [];
+        let direction = opt.direction;
+
+        if (opt.isVerticalFormation) {
+            positions = [
+                [this.center.x, this.center.y - size - .5],
+                [this.center.x, this.center.y + .5]
+            ];
+        } else {
+            positions = [
+                [this.center.x - size + .5, this.center.y],
+                [this.center.x + .5, this.center.y]
+            ];
+        }
+
+        return [
+            {
+                size,
+                position: positions[0],
+                direction: direction + 45 * opt.k,
+            },
+            {
+                size,
+                position: positions[1],
+                direction: direction - 45 * opt.k,
+            }
+        ];
+    }
+    
+    leave(penetration) {
+        const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
+
+        kinematic.move([penetration.x, penetration.y]);
     }
 
     shock(shockObj, opt = {}) {
         const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
 
-        kinematic.move([opt.penetration.x, opt.penetration.y]);
         kinematic.shock(shockObj, {
             direction: opt.penetration.angleDeg()
         });
-    }
-
-    collision(collisionObj, opt = {}) {
-        const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
-        const collKinematic = collisionObj.physics.get(PHYSIC_TYPES.KINEMATIC);
-        const angle = opt.penetration.angleDeg();
-
-        if (opt.penetration.length() > 0) {
-            kinematic.move([opt.penetration.x, opt.penetration.y]);
-        }
-
-        if (collisionObj.type === this.type) {
-            this.remove();
-            collisionObj.remove();
-            // collisionObj.direction = (angle + 180) + (Math.random() > 0.5 ? 45 : -45);
-            // kinematic.direction = (angle) + (Math.random() > 0.5 ? 45 : -45);
-        }
-
-        kinematic.direction = (angle) + (Math.random() > 0.5 ? 45 : -45);
-        
-        // if (1 === 2 && collisionObj.type === this.type) {
-        //     const direction = (collKinematic.direction) + (Math.random() > 0.5 ? 45 : -45);
-        //     const collDirection = (kinematic.direction) + (Math.random() > 0.5 ? 45 : -45);
-        //     collKinematic.direction  = collDirection;
-        //     kinematic.direction = direction;
-
-        //     // opt.onCollapse({
-        //     //     direction: collKinematic.direction,
-        //     //     size: this.size.width,
-        //     //     position: this.position.clone()
-        //     // });
-
-        //     // this.remove();
-        // } else {
-        //     const direction = (collKinematic.direction) + (Math.random() > 0.5 ? 45 : -45);
-        //     const collDirection = (kinematic.direction) + (Math.random() > 0.5 ? 45 : -45);
-        //     collKinematic.direction  = collDirection;
-        //     kinematic.direction = direction;
-        // }
     }
 }

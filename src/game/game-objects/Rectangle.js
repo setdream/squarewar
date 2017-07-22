@@ -55,4 +55,6 @@ export default class Rectangle extends GameObject {
     }
 
     shock() {}
+
+    leave() {}
 }

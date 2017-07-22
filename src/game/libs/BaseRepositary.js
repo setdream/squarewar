@@ -36,9 +36,6 @@ export default class BaseRepositary extends Observer {
         return this.data.size;
     }
 
-    /*
-     * И тут жалеешь о выборе Map.
-     */
     countByKey(key, value) {
         let count = 0;
 
