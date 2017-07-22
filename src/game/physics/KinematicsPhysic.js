@@ -11,7 +11,7 @@ export default class KinematicsPhysic {
         this.speed = opt.speed;
         this.rotate = 0;
 
-        this.direction = opt.direction || 30;
+        this.direction = opt.direction || 360;
 
     }
 

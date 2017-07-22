@@ -99,11 +99,29 @@ export default class MainScene extends BaseScene {
         this.make();
     }
 
-    handleClick(position) {
-        this.toCreateList({
-            position,
-            size: 30,
-            direction: 360
+    handleClick(center) {
+        const [x, y] = [center[0] - this.config.maxSize/2, center[1] - this.config.maxSize/2];
+        const minSize = this.config.minSize;
+        const size = this.config.maxSize;
+        let canCreate = true;
+
+        this.each((gameObject) => {
+            gameObject.vertices.forEach(vertex => {
+                if (vertex.x >= x && vertex.x <= x + size) {
+                    if (vertex.y >= y && vertex.y <= y + size) {
+                        canCreate = false;
+                    }
+                }
+            });
         });
+
+        if (canCreate) {
+            this.toCreateList({
+                position: [x, y],
+                size: size,
+                direction: 360
+            });
+        }
+
     }
 }
