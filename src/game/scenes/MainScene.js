@@ -23,6 +23,7 @@ export default class MainScene extends BaseScene {
 
         this.collision = this.collision.bind(this);
         this.toCreateList = this.toCreateList.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
         this.on('removed', () => {
             if (this.countByKey('type', GAME_OBJECT_TYPES.SQUARE) < 2) {
@@ -96,5 +97,13 @@ export default class MainScene extends BaseScene {
         this.collisionPhysic.calculate(this.collision);
 
         this.make();
+    }
+
+    handleClick(position) {
+        this.toCreateList({
+            position,
+            size: 30,
+            direction: 360
+        });
     }
 }

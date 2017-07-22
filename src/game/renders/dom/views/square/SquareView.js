@@ -12,9 +12,13 @@ export default class SquareView extends BaseView {
 
         this.corners = [];
         this.vertices = [];
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     init() {
+        this.element.addEventListener('click', this.handleClick);
+
         let {width, height} = this.gameObject.size;
 
          if (this.border) {
@@ -37,6 +41,10 @@ export default class SquareView extends BaseView {
 
              this.vertices.push(el);
          });
+    }
+
+    handleClick(e) {
+        e.stopPropagation();
     }
 
     refresh() {
