@@ -5,7 +5,6 @@ export default class DomRender {
     constructor(document, container) {
         this.container = container;
         this.document = document;
-        this.removeQueue = [];
 
         this.scene = null;
         this.sceneView = null;

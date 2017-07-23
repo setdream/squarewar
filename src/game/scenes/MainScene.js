@@ -1,7 +1,7 @@
 import BaseScene from '../libs/BaseScene';
 import CollisionPhysic from '../physics/CollisionPhysic';
 import Factory from '../libs/Factory';
-import Repositary from '../libs/Repositary';
+import BaseRepositary from '../libs/BaseRepositary';
 import PHYSIC_TYPES from '../consts/physic.types';
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
 
@@ -14,7 +14,7 @@ export default class MainScene extends BaseScene {
         super();
 
         this.config = config;
-        this.configRepository = new Repositary();
+        this.configRepository = new BaseRepositary();
         this.factory = new Factory(this, config);
         this.collisionPhysic = new CollisionPhysic(this);
         
@@ -104,28 +104,17 @@ export default class MainScene extends BaseScene {
     }
 
     handleClick(center) {
-        const [x, y] = [center[0] - this.config.maxSize/2, center[1] - this.config.maxSize/2];
-        const minSize = this.config.minSize;
+        const [x, y] = [
+            center[0] - this.config.maxSize/2, 
+            center[1] - this.config.maxSize/2
+        ];
         const size = this.config.maxSize;
-        let canCreate = true;
 
-        this.each((gameObject) => {
-            gameObject.vertices.forEach(vertex => {
-                if (vertex.x >= x && vertex.x <= x + size) {
-                    if (vertex.y >= y && vertex.y <= y + size) {
-                        canCreate = false;
-                    }
-                }
-            });
-        });
-
-        if (canCreate) {
+        if (this.isFreeSpace(x, y, size)) {
             this.toCreateList({
                 position: [x, y],
-                size: size,
-                direction: 360
+                size: size
             });
         }
-
     }
 }

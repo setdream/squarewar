@@ -1,4 +1,5 @@
 import GAME_OBJECT_TYPES from './../../../consts/game-object.types';
+
 import SquareView from './../views/square/SquareView';
 import RectangleView from './../views/rectangle/RectangleView';
 import SceneView from './../views/scene/SceneView';

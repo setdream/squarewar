@@ -1,3 +1,3 @@
-import BaseRepositary from '../../../libs/BaseRepositary';
+import GameRepositary from '../../../libs/GameRepositary';
 
-export default class ViewRepositary extends BaseRepositary {};
+export default class ViewRepositary extends GameRepositary {};

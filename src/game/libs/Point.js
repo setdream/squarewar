@@ -1,5 +1,9 @@
 /*
  * Class for Abstract Point in 2D
+ * 
+ * Всё разлетелось к чёрту на куски,
+ * Я застрелиться пробовал, но... 
+ * 
  */
 export default class Point {
     constructor(x, y) {

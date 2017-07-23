@@ -1,16 +1,22 @@
 import BaseView from '../BaseView';
 
+import PHYSIC_TYPES from '../../../../consts/physic.types';
+
 import './RectangleView.scss';
 
 export default class RectangleView extends BaseView {
-    refresh() {
-        const style = this.element.style;
+
+    init() {
         const {width, height} = this.gameObject.size;
 
-        style.width = `${width}px`;
-        style.height = `${height}px`;
+        this.style.width = `${width}px`;
+        this.style.height = `${height}px`;
+    }
 
-        style.left = `${this.gameObject.position.x}px`;
-        style.top = `${this.gameObject.position.y}px`;
+    refresh() {
+        const {x, y} = this.gameObject.position;
+        const rotate = this.gameObject.physics.get(PHYSIC_TYPES.KINEMATIC).rotate;
+
+        this.style.transform = `translate(${x}px, ${y}px) rotate(${rotate.value}deg)`;
     }
 };

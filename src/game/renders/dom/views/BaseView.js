@@ -2,11 +2,11 @@ export default class BaseView {
     constructor(document, gameObject) {
         this.document = document;
         this.gameObject = gameObject;
+
         this.element = null;
         this.style = null;
 
         this.id = gameObject.id;
-        this.border = 0;
     }
 
     init() {}

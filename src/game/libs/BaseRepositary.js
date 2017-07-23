@@ -1,16 +1,16 @@
 /*
- *   Чтоб выпустить птицу - мою тоску
- *   В пустынную ночь опять.   
+ *   Я вас любил. Любовь ещё (возможно,
+ *   что просто боль) сверлит мои мозги, 
  */
 
 import Observer from './Observer'; 
 
 
 export default class BaseRepositary extends Observer {
-    data = new Map();
+    data = [];
 
     find(id) {
-        return this.data.get(id);
+        return this.data.filter(item => item.id === id)[0];
     }
 
     each(cb = () => {}) {
@@ -18,37 +18,28 @@ export default class BaseRepositary extends Observer {
     }
 
     remove(id) {
-        this.data.delete(id);
+        this.data = this.data.filter(item => item.id !== id);
+        
         this.fire('removed', id);
     }
 
     add(item) {
         if (Array.isArray(item)) {
-            item.forEach((el) => {
-                this.data.set(el.id, el);
-            });
+            this.data = [...this.data, ...item];
         } else {
-            this.data.set(item.id, item);
+            this.data.push(item);
         }
     }
 
     count() {
-        return this.data.size;
+        return this.data.length;
     }
 
     countByKey(key, value) {
-        let count = 0;
-
-        this.data.forEach(item => {
-            if (value === item[key]) {
-                count += 1;
-            }
-        });
-
-        return count;
+        return this.data.filter(item => value === item[key]).length;
     }
 
     clear() {
-        this.data.clear();
+        this.data = [];
     }
 }
