@@ -15,7 +15,7 @@ export default {
         TITLE: 'MAX SIZE',
         NAME: 'maxSize',
         VALUES: {
-            DEFAULT: 200,
+            DEFAULT: 100,
             MIN: 20,
             MAX: 200
         } 
