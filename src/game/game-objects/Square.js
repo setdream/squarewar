@@ -1,8 +1,7 @@
 import uuid from 'uuid-js';
-import Victor from 'victor';
-
 import Rectangle from './Rectangle';
 
+import CONSTANTS from './../consts/common';
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
 import PHYSIC_TYPES from './../consts/physic.types';
 
@@ -14,39 +13,17 @@ export default class Square extends Rectangle {
 
         this.isCollapsed = true;
         this.type = GAME_OBJECT_TYPES.SQUARE;
-        this.scale = opt.scale || 1;
-    }
-
-    collapse() {
-        const kinematic = this.physics.get(PHYSIC_TYPES.KINEMATIC);
-
-        const cfg = {
-            center: {
-                x: this.center.x,
-                y: this.center.y
-            },
-            size: this.size.width,
-            direction: kinematic.direction,
-            speed: kinematic.speed
-        };
-
-        this.remove();
-
-        return cfg;
     }
 
     getChildrensCfg(opt = {}) {
         const rotate = this.physics.get(PHYSIC_TYPES.KINEMATIC).rotate;
-
         const size = ~~(this.size.width / 2);
-        let direction = opt.direction;
-        let speed = (opt.energy / this.size.width) + this.speed;
 
         return [
             {
                 size,
                 position: [this.position.x, this.position.y],
-                direction: direction + 45 * opt.k,
+                direction: opt.direction + CONSTANTS.SQUARE.SHOCK_ANGLE * opt.k,
                 speed: opt.speed,
                 rotate: {
                     value: rotate.getValue(),
@@ -56,7 +33,7 @@ export default class Square extends Rectangle {
             {
                 size,
                 position: [this.center.x + .5, this.center.y + .5],
-                direction: direction - 45 * opt.k,
+                direction: opt.direction - CONSTANTS.SQUARE.SHOCK_ANGLE * opt.k,
                 speed: opt.speed,
                 rotate: {
                     value: rotate.getValue(),

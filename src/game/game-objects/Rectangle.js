@@ -1,6 +1,6 @@
 import Victor from 'victor';
+
 import GameObject from './GameObject';
-import Interval from '../libs/Interval';
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
 
 export default class Rectangle extends GameObject {
@@ -24,34 +24,6 @@ export default class Rectangle extends GameObject {
             new Victor(x + width, y + height),
             new Victor(x, y + height),
         ];
-    }
-
-    getAxes() {
-        const len = this.vertices.length;
-
-        return this.vertices.map((vertex, index) => {
-            const edge = vertex.clone().subtract(
-                this.vertices[(index + 1) == len ? 0 : index + 1]);
-
-            return new Victor(edge.y, -edge.x).norm();
-        });
-    }
-
-    project(axis) {
-        let min = axis.dot(this.vertices[0]);
-        let max = min;
-
-        for (let i = 1; i < this.vertices.length; i++) {
-            let p = axis.dot(this.vertices[i]);
-
-            if (p < min) {
-                min = p;
-            } else if (p > max) {
-                max = p;
-            }
-        }
-
-        return new Interval(min, max);
     }
 
     shock() {}

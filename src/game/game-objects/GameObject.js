@@ -1,6 +1,8 @@
 import uuid from 'uuid-js';
-import Victor from 'victor';
+
 import Point from '../libs/Point';
+import Interval from '../libs/Interval';
+
 import GO_CONSTANTS from '../consts/game-object';
 
 export default class GameObject {
@@ -11,6 +13,11 @@ export default class GameObject {
         this.isCollapsed = opt.isCollapsed || false;
         this.isRemoved = false;
         this.layer = opt.layer || GO_CONSTANTS.DEFAULT_LAYER_VALUE;
+
+        this.center = [];
+        this.vertices = [];
+
+        this.scale = opt.scale || 1;
 
         this.physics = new Map();
     }

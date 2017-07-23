@@ -75,7 +75,6 @@ export default class MainScene extends BaseScene {
     }
 
     collision(go1, go2, opt) {
-        
         /*
          * Penetration resolve
          */
