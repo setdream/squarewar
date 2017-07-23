@@ -13,7 +13,7 @@ export default class GameService {
         this.scene = new MainScene(config);
 
         this.scene.on('end', () => {
-           // config.gameEndCallback();
+           //config.gameEndCallback();
         });
     }
 

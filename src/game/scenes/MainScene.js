@@ -33,6 +33,10 @@ export default class MainScene extends BaseScene {
         });
     }
 
+    isCanCollapse(go) {
+        return (go.size.width / 2) > this.config.minSize;
+    }
+
     toCreateList(config) {
         this.configRepository.add(config);
     }
@@ -55,18 +59,16 @@ export default class MainScene extends BaseScene {
             (go1.center.x > go2.center.x ? -1 : 1) : 
             (go1.center.y > go2.center.y ? 1 : -1)
 
-        if (go1.size.width > 20) {
+        if (this.isCanCollapse(go1)) {
             this.toCreateList(go1.getChildrensCfg({
-                isVerticalFormation,
                 direction: angle,
                 k: k,
                 speed: speeds[0],
             }));
         }
 
-        if (go2.size.width > 20) {
+        if (this.isCanCollapse(go2)) {
             this.toCreateList(go2.getChildrensCfg({
-                isVerticalFormation,
                 direction: angle + 180,
                 k: -k,
                 speed: speeds[1],

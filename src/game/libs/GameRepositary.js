@@ -19,6 +19,7 @@ export default class GameRepositary extends Observer {
 
     remove(id) {
         this.data.delete(id);
+        
         this.fire('removed', id);
     }
 
