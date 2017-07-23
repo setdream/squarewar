@@ -11,18 +11,28 @@ export default class Rectangle extends GameObject {
         this.type = GAME_OBJECT_TYPES.RECTANGLE;
         this.isCollapsed = false;
 
+        this.center = Victor.fromArray(this.getCenterCords());
+
+        this.vertices = this.getVerticesCords()
+            .map(cords => Victor.fromArray(cords));
+    }
+
+    getCenterCords() {
         const {x, y} = this.position;
-        const {width, height} = size;
+        const {width, height} = this.size;
+    
+        return [x + width/2, y + height/2];
+    }
 
-        this.center = new Victor(
-            x + width/2, 
-            y + height/2);
+    getVerticesCords() {
+        const {x, y} = this.position;
+        const {width, height} = this.size;
 
-        this.vertices = [
-            new Victor(x, y),
-            new Victor(x + width, y),
-            new Victor(x + width, y + height),
-            new Victor(x, y + height),
+        return [
+            [x, y],
+            [x + width, y],
+            [x + width, y + height],
+            [x, y + height]
         ];
     }
 

@@ -22,6 +22,10 @@ export default class GameObject {
         this.physics = new Map();
     }
 
+    getCenterCords() {}
+
+    getVerticesCords() {}
+
     addPhysic(physic) {
         this.physics.set(physic.type, physic);
     }

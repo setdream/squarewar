@@ -18,33 +18,33 @@ export default class KinematicsPhysic {
         this.speed = opt.speed;
         this.rotate = new Rotate(opt.rotate);
 
-        this.direction = opt.direction || getRandomObjectDirection();
+        this.direction = opt.direction;
     }
 
     move(moveTo) {
-        this.gameObject.position.add(moveTo);
-
-        const {x, y} = this.gameObject.position;
-        const {width, height} = this.gameObject.size;
-
-        this.gameObject.center.add(new Victor.fromArray(moveTo));
-
-        this.gameObject.vertices = [
-            new Victor(x, y),
-            new Victor(x + width, y),
-            new Victor(x + width, y + height),
-            new Victor(x, y + height),
-        ];
+        const go = this.gameObject;
+        const moveVector = new Victor.fromArray(moveTo);
         
+        go.position.add(moveTo);
+        go.center.add(moveVector);
+
         const angle = toRadians(this.rotate.getValue());
+
+        const cosA = Math.cos(angle);
+        const sinA = Math.sin(angle);
+
+        this.gameObject.vertices = go.getVerticesCords()
+            .map(cords => 
+                this.getVertexVector(cords, cosA, sinA));
+    }
+
+    getVertexVector(cords, cosA, sinA) {
         const center = this.gameObject.center;
 
-        this.gameObject.vertices = this.gameObject.vertices.map((corner) => {
-            return new Victor(
-                center.x + (corner.x - center.x) * Math.cos(angle) - (corner.y - center.y) * Math.sin(angle),
-                center.y + (corner.x - center.x) * Math.sin(angle) + (corner.y - center.y) * Math.cos(angle)
-            );
-        });
+        return new Victor(
+            center.x + (cords[0] - center.x) * cosA - (cords[1] - center.y) * sinA,
+            center.y + (cords[0] - center.x) * sinA + (cords[1] - center.y) * cosA
+        );
     }
 
     shock(shokObj, opt = {}) {

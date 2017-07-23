@@ -1,11 +1,10 @@
+import CONSTANTS from '../../consts/common';
 import { getRandomSpeed } from '../../helpers/helpers';
 
-const MAX_ANGLE_DEGREE = 360;
-const HALF_CIRCLE_DEGREE = 180;
 
 export default class Rotate {
     constructor(config = {}) {
-        this.value = (config.value || 0) % MAX_ANGLE_DEGREE;
+        this.value = (config.value || 0) % CONSTANTS.ANGLE.FULL;
         this.speed = config.speed || getRandomSpeed();
 
         this.rotateTo(config.to);
@@ -17,7 +16,7 @@ export default class Rotate {
     }
 
     getDirection(to) {
-        return Math.abs(this.value - to) > HALF_CIRCLE_DEGREE ? -1 : 1;
+        return Math.abs(this.value - to) > CONSTANTS.ANGLE.HALF ? -1 : 1;
     }
 
     getValue() {
