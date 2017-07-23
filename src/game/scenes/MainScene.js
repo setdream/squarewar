@@ -6,6 +6,7 @@ import PHYSIC_TYPES from '../consts/physic.types';
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
 
 import { getRandomInterval } from '../helpers/helpers';
+import { getSpeedAfterShock } from '../helpers/physic';
 
 
 export default class MainScene extends BaseScene {
@@ -45,6 +46,7 @@ export default class MainScene extends BaseScene {
 
     createChildren(go1, go2, penetration) {
         const angle = penetration.angleDeg();
+        const speeds = getSpeedAfterShock(go1, go2);
 
         const isVerticalFormation = 
             Math.abs(go1.center.x - go2.center.x) > Math.abs(go1.center.y - go2.center.y);
@@ -58,6 +60,7 @@ export default class MainScene extends BaseScene {
                 isVerticalFormation,
                 direction: angle,
                 k: k,
+                speed: speeds[0],
             }));
         }
 
@@ -65,7 +68,8 @@ export default class MainScene extends BaseScene {
             this.toCreateList(go2.getChildrensCfg({
                 isVerticalFormation,
                 direction: angle + 180,
-                k: -k
+                k: -k,
+                speed: speeds[1],
             }));
         }
     }

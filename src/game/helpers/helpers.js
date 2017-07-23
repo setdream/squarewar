@@ -1,3 +1,5 @@
+import CONSTS from '../consts/common';
+
 export const getRequestAnimationFrame = function() {
     return window.requestAnimationFrame || window.mozRequestAnimationFrame ||
         window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -39,3 +41,17 @@ export const getRandomDirection = (direction, degree) =>
 export const addDirection = (direction, degree) => (direction + degree) % 360;
 
 export const toRadians = (degree) => degree * Math.PI / 180;
+
+
+
+export const getRandomAngle = () =>
+    getRandomInterval(1, 360);
+
+export const getRandomShockAngle = degree =>
+    (degree + (Math.random() > .5 ? 45 : -45)) % 360;
+
+export const getRotateDirection = (angle, rotate) =>
+    Math.abs(angle - rotate) > 180 ? -1 : 1;
+
+export const getRandomSpeed = () =>
+    getRandomInterval(CONSTS.SQUARE.MIN_SPEED, CONSTS.SQUARE.MAX_SPEED);

@@ -1,10 +1,12 @@
-import Rectangle from './Rectangle';
+import uuid from 'uuid-js';
 import Victor from 'victor';
+
+import Rectangle from './Rectangle';
+
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
 import PHYSIC_TYPES from './../consts/physic.types';
-import uuid from 'uuid-js';
 
-import { getRandomDirection, addDirection } from '../helpers/helpers';
+import { getRandomAngle } from '../helpers/helpers';
 
 export default class Square extends Rectangle {
     constructor(position, size, opt = {}) {
@@ -35,40 +37,31 @@ export default class Square extends Rectangle {
 
     getChildrensCfg(opt = {}) {
         const rotate = this.physics.get(PHYSIC_TYPES.KINEMATIC).rotate;
-        const newRotate = {
-            ...rotate,
-            speed: 30,
-            value: rotate.current + 30
-        };
+
         const size = ~~(this.size.width / 2);
-
-        let positions = [];
         let direction = opt.direction;
-
-        if (opt.isVerticalFormation) {
-            positions = [
-                [this.position.x, this.position.y],
-                [this.center.x + .5, this.center.y + .5]
-            ];
-        } else {
-            positions = [
-                [this.position.x, this.position.y],
-                [this.center.x + .5, this.center.y + .5]
-            ];
-        }
+        let speed = (opt.energy / this.size.width) + this.speed;
 
         return [
             {
                 size,
-                position: positions[0],
+                position: [this.position.x, this.position.y],
                 direction: direction + 45 * opt.k,
-                rotate: newRotate,
+                speed: opt.speed,
+                rotate: {
+                    value: rotate.getValue(),
+                    to: getRandomAngle()
+                },
             },
             {
                 size,
-                position: positions[1],
+                position: [this.center.x + .5, this.center.y + .5],
                 direction: direction - 45 * opt.k,
-                rotate: newRotate,
+                speed: opt.speed,
+                rotate: {
+                    value: rotate.getValue(),
+                    to: getRandomAngle()
+                }
             }
         ];
     }

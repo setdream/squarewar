@@ -3,16 +3,6 @@
     left: 0;
     top: 0;
 
-    border: 1px solid black;
+    background: black;
     will-change: transform;
-
-    &__vertex {
-        position: absolute;
-        left: 0;
-        top: 0;
-
-        background: red;
-
-        will-change: transform;
-    }
 }

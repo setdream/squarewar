@@ -92,7 +92,7 @@ export default class Factory {
                     rotate: config.rotate || {
                         speed: 0,
                         value: 0,
-                        current: 0
+                        to: 0
                     },
                 }));
             });
