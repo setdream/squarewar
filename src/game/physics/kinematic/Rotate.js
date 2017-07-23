@@ -1,8 +1,7 @@
-import { getRandomSpeed } from '../helpers/helpers';
+import { getRandomSpeed } from '../../helpers/helpers';
 
 const MAX_ANGLE_DEGREE = 360;
 const HALF_CIRCLE_DEGREE = 180;
-
 
 export default class Rotate {
     constructor(config = {}) {

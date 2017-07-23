@@ -8,12 +8,19 @@ export default class RectangleView extends BaseView {
 
     init() {
         const {width, height} = this.gameObject.size;
+        const {x, y} = this.gameObject.position;
 
         this.style.width = `${width}px`;
         this.style.height = `${height}px`;
+
+        this.style.transform = `translate(${x}px, ${y}px)`;
     }
 
     refresh() {
+        if (!this.hasPhysic()) {
+            return;
+        }
+
         const {x, y} = this.gameObject.position;
         const rotate = this.gameObject.physics.get(PHYSIC_TYPES.KINEMATIC).rotate;
 

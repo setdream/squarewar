@@ -1,3 +1,5 @@
+import PHYSIC_TYPES from '../../../consts/physic.types';
+
 export default class BaseView {
     constructor(document, gameObject) {
         this.document = document;
@@ -10,6 +12,8 @@ export default class BaseView {
     }
 
     init() {}
+
+    refresh() {}
 
     removeChild(id) {
         if (this.element) {
@@ -38,5 +42,8 @@ export default class BaseView {
         return this.element ? this.element : this.makeHTMLElement();
     }
 
-    refresh() {}
+    hasPhysic() {
+        return this.gameObject.physics && 
+            this.gameObject.physics.has(PHYSIC_TYPES.KINEMATIC);
+    }
 };

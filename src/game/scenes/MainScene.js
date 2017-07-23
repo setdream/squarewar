@@ -2,10 +2,10 @@ import BaseScene from '../libs/BaseScene';
 import CollisionPhysic from '../physics/CollisionPhysic';
 import Factory from '../libs/Factory';
 import BaseRepositary from '../libs/BaseRepositary';
-import PHYSIC_TYPES from '../consts/physic.types';
-import GAME_OBJECT_TYPES from './../consts/game-object.types';
 
-import { getRandomInterval } from '../helpers/helpers';
+import GAME_OBJECT_TYPES from './../consts/game-object.types';
+import CONSTANTS from './../consts/common';
+
 import { getSpeedAfterShock } from '../helpers/physic';
 
 
@@ -15,9 +15,10 @@ export default class MainScene extends BaseScene {
 
         this.config = config;
         this.configRepository = new BaseRepositary();
-        this.factory = new Factory(this, config);
+
         this.collisionPhysic = new CollisionPhysic(this);
         
+        this.factory = new Factory(this, config);
         this.factory
             .generateField()
             .generateSquares();
@@ -25,16 +26,14 @@ export default class MainScene extends BaseScene {
         this.collision = this.collision.bind(this);
         this.toCreateList = this.toCreateList.bind(this);
         this.handleClick = this.handleClick.bind(this);
-
-        this.on('removed', () => {
-            if (this.countByKey('type', GAME_OBJECT_TYPES.SQUARE) < 2) {
-                this.fire('end');
-            }
-        });
     }
 
     isCanCollapse(go) {
         return (go.size.width / 2) > this.config.minSize;
+    }
+
+    isGameEnd() {
+        return this.countByKey('type', GAME_OBJECT_TYPES.SQUARE) < CONSTANTS.MIN_COUNT;
     }
 
     toCreateList(config) {
@@ -102,6 +101,10 @@ export default class MainScene extends BaseScene {
         this.collisionPhysic.calculate(this.collision);
 
         this.make();
+
+        if (this.isGameEnd()) {
+            this.fire('end');
+        }
     }
 
     handleClick(center) {

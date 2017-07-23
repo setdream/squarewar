@@ -1,5 +1,10 @@
 export default {
     SPACE: 10,
+    MIN_COUNT: 2,
+    ANGLE: {
+        FULL: 360,
+        HALF: 180
+    },
     SQUARE: {
         MIN_SIZE: 20,
         MAX_SIZE: 50,

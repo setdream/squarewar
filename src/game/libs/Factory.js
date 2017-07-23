@@ -1,4 +1,4 @@
-import { getRandomInterval } from '../helpers/helpers';
+import { getRandomObjectDirection, getRandomSpeed } from '../helpers/helpers';
 
 import Square from '../game-objects/Square';
 import Rectangle from '../game-objects/Rectangle';
@@ -35,10 +35,7 @@ export default class Factory {
             size: {
                 width: 100,
                 height: field.height
-            },
-            direction: 0,
-            speed: 0,
-            physics: [PHYSIC_TYPES.KINEMATIC]
+            }
         });
 
         this.make({
@@ -47,10 +44,7 @@ export default class Factory {
             size: {
                 width: 100,
                 height: field.height
-            },
-            direction: 180,
-            speed: 0,
-            physics: [PHYSIC_TYPES.KINEMATIC]    
+            } 
         });
 
         this.make({
@@ -59,10 +53,7 @@ export default class Factory {
             size: {
                 width: field.width,
                 height: 100
-            },
-            direction: 90,
-            speed: 0,
-            physics: [PHYSIC_TYPES.KINEMATIC]     
+            }
         });
 
         this.make({
@@ -71,10 +62,7 @@ export default class Factory {
             size: {
                 width: field.width,
                 height: 100
-            },
-            direction: 270,
-            speed: 0,
-            physics: [PHYSIC_TYPES.KINEMATIC]
+            }
         });
 
         return this;
@@ -85,15 +73,10 @@ export default class Factory {
 
         if (Array.isArray(config.physics)) {
             config.physics.forEach(type => {
-
                 go.addPhysic(new (PHYSIC_TYPES_TABLE[type])(go, {
-                    speed: config.speed,
-                    direction: config.direction,
-                    rotate: config.rotate || {
-                        speed: 0,
-                        value: 0,
-                        to: 0
-                    },
+                    speed: config.speed || getRandomSpeed(),
+                    direction: config.direction || getRandomObjectDirection(),
+                    rotate: config.rotate || {},
                 }));
             });
         }
@@ -108,7 +91,7 @@ export default class Factory {
             size: config.size,
             position: config.position,
             rotate: config.rotate,
-            speed: config.speed || getRandomInterval(this.config.minSpeed, this.config.maxSpeed),
+            speed: config.speed,
             physics: [PHYSIC_TYPES.KINEMATIC],
         });
     }
@@ -134,8 +117,6 @@ export default class Factory {
                     type: GAME_OBJECT_TYPES.SQUARE,
                     position: [maxSize * j + padding, i * maxSize + padding],
                     size: realMaxSize,
-                    speed: getRandomInterval(this.config.minSpeed, this.config.maxSpeed),
-                    direction: (45 * j) % 360,
                     physics: [PHYSIC_TYPES.KINEMATIC]
                 });
             }

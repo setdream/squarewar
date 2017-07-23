@@ -1,9 +1,14 @@
 import Victor from 'victor';
 import TYPES from '../consts/physic.types';
 
-import Rotate from '../libs/Rotate';
+import Rotate from './kinematic/Rotate';
 
-import { toRadians, getRandomShockAngle, getRandomAngle } from '../helpers/helpers';
+import { 
+        toRadians, 
+        getRandomShockAngle, 
+        getRandomAngle,  
+        getRandomObjectDirection
+    } from '../helpers/helpers';
 
 export default class KinematicsPhysic {
     type = TYPES.KINEMATIC;
@@ -13,7 +18,7 @@ export default class KinematicsPhysic {
         this.speed = opt.speed;
         this.rotate = new Rotate(opt.rotate);
 
-        this.direction = opt.direction || 0;
+        this.direction = opt.direction || getRandomObjectDirection();
     }
 
     move(moveTo) {
