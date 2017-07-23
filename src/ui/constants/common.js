@@ -12,19 +12,19 @@ export default {
         } 
     },
     MENU_FIELD_MAX_SIZE: {
-        TITLE: 'SIZE',
+        TITLE: 'MAX SIZE',
         NAME: 'maxSize',
         VALUES: {
-            DEFAULT: 100,
+            DEFAULT: 200,
             MIN: 20,
-            MAX: 100
+            MAX: 200
         } 
     },    
     MENU_FIELD_COUNT: {
         TITLE: 'COUNT',
         NAME: 'count',
         VALUES: {
-            DEFAULT: 2,
+            DEFAULT: 20,
             MIN: 2,
             MAX: 100
         } 
