@@ -45,3 +45,9 @@
 
 ## Следующее обновления:
 - Изменить систему координат.
+
+
+
+Меню:
+
+![Меню](https://4.downloader.disk.yandex.ru/disk/91ecaf97f66b9c16a5a4328565ed11f600a971b3cac27bcfdd06f4cf6d21e6a5/5975b473/Lkd81OBiTzwC7owqop4HlxJ21mooxa5CseyK-7jsuf0xW18l0asFaVU7rHhHK51_3pNNtsOqQbLW1NbeU0Z3dg%3D%3D?uid=0&filename=2017-07-24_07-47-20.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&fsize=33943&hid=d247e585e5fd42b1d025ee7e40a9f134&media_type=image&tknv=v2&etag=c3be0c20f0d630b0dd1bf6cec84cdc30)
