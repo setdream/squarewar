@@ -1,4 +1,5 @@
 import Victor from 'victor';
+import Field from './collision/Field';
 
 import TYPES from '../consts/physic.types';
 
@@ -10,6 +11,7 @@ export default class CollisionPhysic {
 
     constructor(scene) {
         this.scene = scene;
+        this.field = new Field(scene);
     }
 
     getAxes({vertices: corners1}, {vertices: corners2}) {
@@ -25,6 +27,8 @@ export default class CollisionPhysic {
         const allCorners = [go1.vertices, go2.vertices];
         const axes = this.getAxes(go1, go2);
         const scalars = [];
+        
+        let overlap = Number.MAX_VALUE;
         
         let mtv = new Victor(Number.MAX_VALUE, Number.MAX_VALUE);
         
@@ -47,7 +51,7 @@ export default class CollisionPhysic {
                 return false;
             }
             
-            let overlap = s1max > s2max ? -(s2max - s1min) : (s1max - s2min);
+            overlap = s1max > s2max ? -(s2max - s1min) : (s1max - s2min);
 
             if (Math.abs(overlap) < mtv.length()) { 
                 mtv = axis.clone().multiply(new Victor(overlap, overlap));
@@ -60,10 +64,17 @@ export default class CollisionPhysic {
     calculate(callback = () => {}) {
         let penetration = null;
 
+        this.field.init();
+
         this.scene.each((go1) => {
-           this.scene.each((go2) => {
-                
-                if(go1.id !== go2.id &&
+            if (!go1.isCollapsed) {
+                return;
+            }
+
+           this.field.getCollapseIds(go1).forEach((id) => {
+                const go2 = this.scene.find(id);
+
+                if(go2 && go1.id !== id &&
                     (penetration = this.collide(go2, go1))) 
                 {
                     callback(go1, go2, {

@@ -13,6 +13,18 @@ export default class GameRepositary extends Observer {
         return this.data.get(id);
     }
 
+    findByKey(key, value) {
+        const result = [];
+
+        this.data.forEach(go => {
+            if (go[key] === value) {
+                result.push(go);
+            }
+        });
+
+        return result;
+    }
+
     each(cb = () => {}) {
         this.data.forEach(cb);
     }

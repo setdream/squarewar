@@ -15,13 +15,13 @@ export default class MainScene extends BaseScene {
 
         this.config = config;
         this.configRepository = new BaseRepositary();
-
-        this.collisionPhysic = new CollisionPhysic(this);
         
         this.factory = new Factory(this, config);
         this.factory
             .generateField()
             .generateSquares();
+
+        this.collisionPhysic = new CollisionPhysic(this);
 
         this.collision = this.collision.bind(this);
         this.toCreateList = this.toCreateList.bind(this);
