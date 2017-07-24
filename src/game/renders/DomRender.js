@@ -20,6 +20,8 @@ export default class DomRender {
     }
 
     draw() {
+        this.sync();
+
         this.scene.each(gameObject => {
             let view = this.repositary.find(gameObject.id);
 
@@ -32,8 +34,6 @@ export default class DomRender {
 
             view.refresh();
         });
-
-        this.sync();
     }
 
     sync() {
