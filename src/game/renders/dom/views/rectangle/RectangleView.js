@@ -16,6 +16,10 @@ export default class RectangleView extends BaseView {
         this.style.transform = `translate(${x}px, ${y}px)`;
     }
 
+    remove() {
+        this.element.remove();
+    }
+
     refresh() {
         if (!this.hasPhysic()) {
             return;

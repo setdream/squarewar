@@ -7,6 +7,7 @@ export default class BaseView {
 
         this.element = null;
         this.style = null;
+        this.isRemoved = false;
 
         this.id = gameObject.id;
     }
@@ -14,6 +15,10 @@ export default class BaseView {
     init() {}
 
     refresh() {}
+
+    toRemove() {
+        this.isRemoved = true;
+    }
 
     removeChild(id) {
         if (this.element) {

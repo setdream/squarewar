@@ -1,4 +1,4 @@
-import Victor from 'victor';
+import Vector from '../libs/Vector';
 
 import GameObject from './GameObject';
 import GAME_OBJECT_TYPES from './../consts/game-object.types';
@@ -11,10 +11,10 @@ export default class Rectangle extends GameObject {
         this.type = GAME_OBJECT_TYPES.RECTANGLE;
         this.isCollapsed = false;
 
-        this.center = Victor.fromArray(this.getCenterCords());
+        this.center = Vector.fromArray(this.getCenterCords());
 
         this.vertices = this.getVerticesCords()
-            .map(cords => Victor.fromArray(cords));
+            .map(cords => Vector.fromArray(cords));
     }
 
     getCenterCords() {

@@ -1,4 +1,4 @@
-import Victor from 'victor';
+import Vector from '../libs/Vector';
 import TYPES from '../consts/physic.types';
 
 import Rotate from './kinematic/Rotate';
@@ -23,7 +23,7 @@ export default class KinematicsPhysic {
 
     move(moveTo) {
         const go = this.gameObject;
-        const moveVector = new Victor.fromArray(moveTo);
+        const moveVector = new Vector.fromArray(moveTo);
         
         go.position.add(moveTo);
         go.center.add(moveVector);
@@ -41,7 +41,7 @@ export default class KinematicsPhysic {
     getVertexVector(cords, cosA, sinA) {
         const center = this.gameObject.center;
 
-        return new Victor(
+        return new Vector(
             center.x + (cords[0] - center.x) * cosA - (cords[1] - center.y) * sinA,
             center.y + (cords[0] - center.x) * sinA + (cords[1] - center.y) * cosA
         );

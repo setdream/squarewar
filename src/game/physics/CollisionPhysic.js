@@ -1,4 +1,4 @@
-import Victor from 'victor';
+import Vector from '../libs/Vector';
 import Field from './collision/Field';
 
 import TYPES from '../consts/physic.types';
@@ -30,7 +30,7 @@ export default class CollisionPhysic {
         
         let overlap = Number.MAX_VALUE;
         
-        let mtv = new Victor(Number.MAX_VALUE, Number.MAX_VALUE);
+        let mtv = new Vector(Number.MAX_VALUE, Number.MAX_VALUE);
         
         for (let axis of axes) {
             allCorners.forEach((corners, index) => {
@@ -54,7 +54,7 @@ export default class CollisionPhysic {
             overlap = s1max > s2max ? -(s2max - s1min) : (s1max - s2min);
 
             if (Math.abs(overlap) < mtv.length()) { 
-                mtv = axis.clone().multiply(new Victor(overlap, overlap));
+                mtv = axis.clone().multiply(overlap);
             }
         }
 

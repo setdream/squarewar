@@ -9,7 +9,6 @@ import CONSTS from '../consts/common';
 import GAME_OBJECT_TYPES from '../consts/game-object.types';
 import PHYSIC_TYPES from '../consts/physic.types';
 
-import Victor from 'victor';
 
 const OBJECT_TYPES_TABLE = {
     [GAME_OBJECT_TYPES.SQUARE]: Square,

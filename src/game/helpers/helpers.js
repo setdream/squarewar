@@ -1,16 +1,22 @@
 import CONSTS from '../consts/common';
 
 
+const DEGREES = 180 / Math.PI;
+const SLOW_TIME = .06;
+
 export const getRequestAnimationFrame = function() {
     return window.requestAnimationFrame || window.mozRequestAnimationFrame ||
         window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 }
 
 export const makeTimer = 
-    lastTime => nowTime => (dt => (lastTime = nowTime) && dt)((nowTime - lastTime) / 1000.0);
+    lastTime => nowTime => (dt => (lastTime = nowTime) && dt)(Math.min(SLOW_TIME, (nowTime - lastTime) / 1000.0));
 
 export const toRadians = 
     (degree) => degree * Math.PI / CONSTS.ANGLE.HALF;
+
+export const toDegrees = 
+    (radians) => radians * DEGREES;
 
 export const getRandomInterval = (min, max) => 
     Math.floor(Math.random() * (max - min + 1) + min);

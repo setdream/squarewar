@@ -17,30 +17,45 @@ export default class DomRender {
         this.sceneView = makeView(this.document, scene);
 
         this.container.appendChild(this.sceneView.toHTMLElement());
+
+        this.scene.on('removed', (id) => {
+            let view = this.repositary.find(id);
+
+            if (view) {
+                view.toRemove();
+            }
+        });
     }
 
     draw() {
+        let htmlFragment = null;
+
         this.sync();
 
         this.scene.each(gameObject => {
             let view = this.repositary.find(gameObject.id);
 
             if (!view) {
+                if (!htmlFragment) {
+                    htmlFragment = document.createDocumentFragment();
+                }
                 view = makeView(document, gameObject);
                 this.repositary.add(view);
 
-                this.sceneView.appendChild(view.toHTMLElement());
+                htmlFragment.appendChild(view.toHTMLElement());
             }
 
             view.refresh();
         });
+
+        if (htmlFragment) {
+            this.sceneView.appendChild(htmlFragment);
+        }
     }
 
     sync() {
         this.repositary.each(view => {
-            let go = this.scene.find(view.id);
-
-            if (!go) {
+            if (view.isRemoved) {
                 this.sceneView.removeChild(view.id);
                 this.repositary.remove(view.id);
             }

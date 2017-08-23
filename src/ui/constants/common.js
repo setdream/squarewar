@@ -26,7 +26,7 @@ export default {
         VALUES: {
             DEFAULT: 10,
             MIN: 2,
-            MAX: 100
+            MAX: 3000
         } 
     }
 };
